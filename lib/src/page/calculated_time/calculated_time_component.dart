@@ -31,11 +31,18 @@ class CalculatedTimeComponent extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 );
               }
-              if (timeState.initialTime2 == null) {
+              if (timeState.initialTime2 == null &&
+                  timeState.endTime1 == null) {
                 return Text(
                   AppTimeFormater.getString(
                       timeState.initialTime1!.add(dayState.time)),
                   style: Theme.of(context).textTheme.displaySmall,
+                );
+              }
+              if (timeState.initialTime2 == null) {
+                return Text(
+                  "Ainda no intervalo",
+                  style: Theme.of(context).textTheme.titleLarge,
                 );
               }
               return Text(

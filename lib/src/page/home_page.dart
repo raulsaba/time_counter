@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text("Contador de Horas"),
+          title: const Text("Horas de Trabalho"),
         ),
         body: const Center(
           child: Column(

@@ -1,4 +1,4 @@
-package com.example.time_counter
+package com.rvsdev.time_counter
 
 import io.flutter.embedding.android.FlutterActivity
 

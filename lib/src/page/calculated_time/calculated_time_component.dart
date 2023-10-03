@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:time_counter/src/core/utils/app_time_formatter.dart';
 import 'package:time_counter/src/core/utils/time_of_day_ext.dart';
 
 import '../working_day/cubit/working_day_cubit.dart';
@@ -22,7 +23,8 @@ class CalculatedTimeComponent extends StatelessWidget {
         ),
         BlocBuilder<WorkingTimeCubit, WorkingTimeState>(
           builder: (context, timeState) {
-            return BlocBuilder<WorkingDayCubit, WorkingDayState>(builder: (context, dayState) {
+            return BlocBuilder<WorkingDayCubit, WorkingDayState>(
+                builder: (context, dayState) {
               if (timeState.initialTime1 == null) {
                 return Text(
                   "Trabalho não iniciado",
@@ -31,14 +33,15 @@ class CalculatedTimeComponent extends StatelessWidget {
               }
               if (timeState.initialTime2 == null) {
                 return Text(
-                  timeState.initialTime1!.add(dayState.time).format(context),
+                  AppTimeFormater.getString(
+                      timeState.initialTime1!.add(dayState.time)),
                   style: Theme.of(context).textTheme.displaySmall,
                 );
               }
               return Text(
-                timeState.initialTime2!
-                    .add(dayState.time.subtract(timeState.endTime1!.subtract(timeState.initialTime1!)))
-                    .format(context),
+                AppTimeFormater.getString(timeState.initialTime2!.add(
+                    dayState.time.subtract(timeState.endTime1!
+                        .subtract(timeState.initialTime1!)))),
                 style: Theme.of(context).textTheme.displaySmall,
               );
             });
@@ -68,7 +71,8 @@ class _WorkingTimeTextState extends State<WorkingTimeText> {
     if (dateTime.second != 0) {
       Future.delayed(Duration(seconds: 60 - dateTime.second), () {
         setState(() {});
-        timer = Timer.periodic(const Duration(minutes: 1), (Timer t) => setState(() {}));
+        timer = Timer.periodic(
+            const Duration(minutes: 1), (Timer t) => setState(() {}));
       });
     }
   }
@@ -78,7 +82,7 @@ class _WorkingTimeTextState extends State<WorkingTimeText> {
     return BlocBuilder<WorkingTimeCubit, WorkingTimeState>(
       builder: (context, state) {
         return Text(
-          state.workingTime.format(context),
+          AppTimeFormater.getString(state.workingTime),
           style: Theme.of(context).textTheme.displaySmall,
         );
       },

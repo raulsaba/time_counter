@@ -2,40 +2,23 @@ import 'package:flutter/material.dart';
 
 extension TimeOfDayExtension on TimeOfDay {
   TimeOfDay add(TimeOfDay time) {
-    int calculatedHour = hour;
-    int calculatedMinute = minute;
-    if (minute + time.minute >= 60) {
-      calculatedHour++;
-      calculatedMinute = (minute + time.minute) - 60;
-    } else {
-      calculatedMinute = minute + time.minute;
-    }
+    Duration duration = Duration(hours: hour, minutes: minute);
+    Duration duration2 = Duration(hours: time.hour, minutes: time.minute);
 
-    if (hour + time.hour >= 24) {
-      calculatedHour = (hour + time.hour) - 24;
-    } else {
-      calculatedHour = hour + time.hour;
-    }
+    final Duration sum = duration + duration2;
+    int calculatedHour = sum.inHours;
+    int calculatedMinute = sum.inMinutes - (sum.inHours * 60);
 
     return replacing(hour: calculatedHour, minute: calculatedMinute);
   }
 
   TimeOfDay subtract(TimeOfDay time) {
-    int calculatedHour = hour;
-    int calculatedMinute = minute;
+    Duration duration = Duration(hours: hour, minutes: minute);
+    Duration duration2 = Duration(hours: time.hour, minutes: time.minute);
 
-    if (minute < time.minute) {
-      calculatedHour--;
-      calculatedMinute = 60 - (time.minute - minute);
-    } else {
-      calculatedMinute = minute - time.minute;
-    }
-
-    if (hour < time.hour) {
-      calculatedHour = 24 - (time.hour - hour);
-    } else {
-      calculatedHour = hour - time.hour;
-    }
+    final Duration sub = duration - duration2;
+    int calculatedHour = sub.inHours;
+    int calculatedMinute = sub.inMinutes - (sub.inHours * 60);
 
     return replacing(hour: calculatedHour, minute: calculatedMinute);
   }

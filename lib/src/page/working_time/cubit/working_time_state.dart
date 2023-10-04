@@ -6,8 +6,14 @@ sealed class WorkingTimeState {
   final TimeOfDay? initialTime2;
   final TimeOfDay? endTime1;
   final TimeOfDay? endTime2;
+  final String? errorMessage;
 
-  const WorkingTimeState({this.initialTime1, this.initialTime2, this.endTime1, this.endTime2});
+  const WorkingTimeState(
+      {this.initialTime1,
+      this.initialTime2,
+      this.endTime1,
+      this.endTime2,
+      this.errorMessage});
 
   String get getInitialTime1;
   String get getInitialTime2;
@@ -18,8 +24,17 @@ sealed class WorkingTimeState {
 }
 
 final class WorkingTimes extends WorkingTimeState {
-  const WorkingTimes({TimeOfDay? initialTime1, TimeOfDay? initialTime2, TimeOfDay? endTime1, TimeOfDay? endTime2})
-      : super(initialTime1: initialTime1, initialTime2: initialTime2, endTime1: endTime1, endTime2: endTime2);
+  const WorkingTimes(
+      {TimeOfDay? initialTime1,
+      TimeOfDay? initialTime2,
+      TimeOfDay? endTime1,
+      TimeOfDay? endTime2,
+      super.errorMessage})
+      : super(
+            initialTime1: initialTime1,
+            initialTime2: initialTime2,
+            endTime1: endTime1,
+            endTime2: endTime2);
 
   @override
   TimeOfDay get workingTime {

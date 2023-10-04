@@ -9,11 +9,11 @@ part 'working_day_state.dart';
 const String workingTimePrefsKey = 'workingTime';
 
 class WorkingDayCubit extends Cubit<WorkingDayState> {
-  WorkingDayCubit() : super(const WorkingDayTime()) {
+  WorkingDayCubit(this._prefs) : super(const WorkingDayTime()) {
     load();
   }
 
-  final SharedPreferencesAdapter _prefs = const SharedPreferencesAdapter();
+  final SharedPreferencesAdapter _prefs;
 
   void setTime(TimeOfDay time) {
     emit(WorkingDayTime(time: time));

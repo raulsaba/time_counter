@@ -12,29 +12,30 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text("Horas de Trabalho"),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text("Horas de Trabalho"),
+      ),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            WorkingDayComponent(),
+            WorkingTimeComponent(),
+            CalculatedTimeComponent(),
+          ],
         ),
-        body: const Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              WorkingDayComponent(),
-              WorkingTimeComponent(),
-              CalculatedTimeComponent(),
-            ],
-          ),
-        ),
-        floatingActionButton: BlocBuilder<WorkingTimeCubit, WorkingTimeState>(
-          builder: (context, state) {
-            return FloatingActionButton(
-              onPressed: () {
-                context.read<WorkingTimeCubit>().reset();
-              },
-              child: const Icon(Icons.refresh),
-            );
-          },
-        ));
+      ),
+      floatingActionButton: BlocBuilder<WorkingTimeCubit, WorkingTimeState>(
+        builder: (context, state) {
+          return FloatingActionButton(
+            onPressed: () {
+              context.read<WorkingTimeCubit>().reset();
+            },
+            child: const Icon(Icons.refresh),
+          );
+        },
+      ),
+    );
   }
 }

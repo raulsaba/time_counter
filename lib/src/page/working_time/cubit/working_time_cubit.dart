@@ -13,15 +13,48 @@ const String endTime1PrefsKey = 'endTime1';
 const String endTime2PrefsKey = 'endTime2';
 
 class WorkingTimeCubit extends Cubit<WorkingTimeState> {
-  WorkingTimeCubit() : super(const WorkingTimes()) {
+  WorkingTimeCubit(this._prefs) : super(const WorkingTimes()) {
     load();
   }
 
-  final SharedPreferencesAdapter _prefs = const SharedPreferencesAdapter();
+  final SharedPreferencesAdapter _prefs;
+
+  String? _validateTime(TimeOfDay? intialTime1, TimeOfDay? endTime1,
+      TimeOfDay? intialTime2, TimeOfDay? endTime2) {
+    try {
+      isBefore(intialTime1, endTime1);
+      isBefore(endTime1, intialTime2);
+      isBefore(intialTime2, endTime2);
+      return null;
+    } on TimeException {
+      return 'Horário inserido inválido';
+    }
+  }
+
+  void isBefore(TimeOfDay? time1, TimeOfDay? time2) {
+    if (time1 == null || time2 == null) {
+      return;
+    }
+    time2.subtract(time1);
+  }
 
   void setInitialTime1(TimeOfDay time) {
+    String? errorMessage =
+        _validateTime(time, state.endTime1, state.initialTime2, state.endTime2);
+    if (errorMessage != null) {
+      emit(WorkingTimes(
+          initialTime1: state.initialTime1,
+          initialTime2: state.initialTime2,
+          endTime1: state.endTime1,
+          endTime2: state.endTime2,
+          errorMessage: errorMessage));
+      return;
+    }
     emit(WorkingTimes(
-        initialTime1: time, initialTime2: state.initialTime2, endTime1: state.endTime1, endTime2: state.endTime2));
+        initialTime1: time,
+        initialTime2: state.initialTime2,
+        endTime1: state.endTime1,
+        endTime2: state.endTime2));
 
     try {
       _prefs.setString(initialTime1PrefsKey, AppTimeFormater.getString(time));
@@ -31,8 +64,23 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
   }
 
   void setInitialTime2(TimeOfDay time) {
+    String? errorMessage =
+        _validateTime(state.initialTime1, state.endTime1, time, state.endTime2);
+    if (errorMessage != null) {
+      emit(WorkingTimes(
+          initialTime1: state.initialTime1,
+          initialTime2: state.initialTime2,
+          endTime1: state.endTime1,
+          endTime2: state.endTime2,
+          errorMessage: errorMessage));
+      return;
+    }
+
     emit(WorkingTimes(
-        initialTime1: state.initialTime1, initialTime2: time, endTime1: state.endTime1, endTime2: state.endTime2));
+        initialTime1: state.initialTime1,
+        initialTime2: time,
+        endTime1: state.endTime1,
+        endTime2: state.endTime2));
 
     try {
       _prefs.setString(initialTime2PrefsKey, AppTimeFormater.getString(time));
@@ -42,8 +90,22 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
   }
 
   void setEndTime1(TimeOfDay time) {
+    String? errorMessage = _validateTime(
+        state.initialTime1, time, state.initialTime2, state.endTime2);
+    if (errorMessage != null) {
+      emit(WorkingTimes(
+          initialTime1: state.initialTime1,
+          initialTime2: state.initialTime2,
+          endTime1: state.endTime1,
+          endTime2: state.endTime2,
+          errorMessage: errorMessage));
+      return;
+    }
     emit(WorkingTimes(
-        initialTime1: state.initialTime1, initialTime2: state.initialTime2, endTime1: time, endTime2: state.endTime2));
+        initialTime1: state.initialTime1,
+        initialTime2: state.initialTime2,
+        endTime1: time,
+        endTime2: state.endTime2));
 
     try {
       _prefs.setString(endTime1PrefsKey, AppTimeFormater.getString(time));
@@ -53,8 +115,22 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
   }
 
   void setEndTime2(TimeOfDay time) {
+    String? errorMessage = _validateTime(
+        state.initialTime1, state.endTime1, state.initialTime2, time);
+    if (errorMessage != null) {
+      emit(WorkingTimes(
+          initialTime1: state.initialTime1,
+          initialTime2: state.initialTime2,
+          endTime1: state.endTime1,
+          endTime2: state.endTime2,
+          errorMessage: errorMessage));
+      return;
+    }
     emit(WorkingTimes(
-        initialTime1: state.initialTime1, initialTime2: state.initialTime2, endTime1: state.endTime1, endTime2: time));
+        initialTime1: state.initialTime1,
+        initialTime2: state.initialTime2,
+        endTime1: state.endTime1,
+        endTime2: time));
 
     try {
       _prefs.setString(endTime2PrefsKey, AppTimeFormater.getString(time));
@@ -70,10 +146,20 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
     final String? endTime2 = await _prefs.getString(endTime2PrefsKey);
 
     try {
-      final TimeOfDay? initialTimeOfDay1 = initialTime1 != null ? AppTimeFormater.getTime(initialTime1) : null;
-      final TimeOfDay? initialTimeOfDay2 = initialTime2 != null ? AppTimeFormater.getTime(initialTime2) : null;
-      final TimeOfDay? endTimeOfDay1 = endTime1 != null ? AppTimeFormater.getTime(endTime1) : null;
-      final TimeOfDay? endTimeOfDay2 = endTime2 != null ? AppTimeFormater.getTime(endTime2) : null;
+      final TimeOfDay? initialTimeOfDay1 =
+          initialTime1 != null && initialTime1 != ''
+              ? AppTimeFormater.getTime(initialTime1)
+              : null;
+      final TimeOfDay? initialTimeOfDay2 =
+          initialTime2 != null && initialTime2 != ''
+              ? AppTimeFormater.getTime(initialTime2)
+              : null;
+      final TimeOfDay? endTimeOfDay1 = endTime1 != null && endTime1 != ''
+          ? AppTimeFormater.getTime(endTime1)
+          : null;
+      final TimeOfDay? endTimeOfDay2 = endTime2 != null && endTime2 != ''
+          ? AppTimeFormater.getTime(endTime2)
+          : null;
 
       emit(WorkingTimes(
           initialTime1: initialTimeOfDay1,

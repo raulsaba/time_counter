@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:time_counter/src/core/shared_preferences_adapter/shared_preferences_adapter.dart';
-
+import '../../../shared_preferences_adapter/shared_preferences_adapter.dart';
 import '../model/theme_model.dart';
 
 abstract class ThemeLocalDataSource {

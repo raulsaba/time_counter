@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:time_counter/src/core/errors/failures.dart';
-import 'package:time_counter/src/core/theme/domain/entities/theme_entity.dart';
 
+import '../../../errors/failures.dart';
+import '../entities/theme_entity.dart';
 import '../repositories/theme_repository.dart';
 
 abstract class SetTheme {

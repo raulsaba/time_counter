@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:time_counter/src/core/errors/exceptions.dart';
-import 'package:time_counter/src/core/errors/failures.dart';
-import 'package:time_counter/src/core/theme/data/datasources/theme_local_datasource.dart';
-import 'package:time_counter/src/core/theme/data/model/theme_model.dart';
-import 'package:time_counter/src/core/theme/domain/entities/theme_entity.dart';
-import 'package:time_counter/src/core/theme/domain/repositories/theme_repository.dart';
+
+import '../../../errors/exceptions.dart';
+import '../../../errors/failures.dart';
+import '../../domain/entities/theme_entity.dart';
+import '../../domain/repositories/theme_repository.dart';
+import '../datasources/theme_local_datasource.dart';
+import '../model/theme_model.dart';
 
 class ThemeRepositoryImpl implements ThemeRepository {
   final ThemeLocalDataSource _localDataSource;
@@ -33,7 +34,8 @@ class ThemeRepositoryImpl implements ThemeRepository {
   @override
   Future<Either<Failure, bool>> setTheme(ThemeEntity theme) async {
     try {
-      final result = await _localDataSource.setTheme(ThemeModel.fromEntity(theme));
+      final result =
+          await _localDataSource.setTheme(ThemeModel.fromEntity(theme));
       return Future.value(Right(result));
     } on JsonException catch (e) {
       return Future.value(Left(JsonFailure(message: e.message)));

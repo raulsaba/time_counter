@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:time_counter/src/core/theme/domain/entities/theme_entity.dart';
+import '../../domain/entities/theme_entity.dart';
 
 class ThemeModel extends ThemeEntity {
   ThemeModel({required super.primaryColor, required super.brightness});
@@ -14,7 +14,8 @@ class ThemeModel extends ThemeEntity {
   factory ThemeModel.fromMap(Map<String, dynamic> map) {
     return ThemeModel(
       primaryColor: Color(map['primaryColor']),
-      brightness: map['brightness'] == 'light' ? Brightness.light : Brightness.dark,
+      brightness:
+          map['brightness'] == 'light' ? Brightness.light : Brightness.dark,
     );
   }
 

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:time_counter/src/core/utils/app_time_formatter.dart';
+import '../../../core/utils/app_time_formatter.dart';
 
 import '../../../core/errors/exceptions.dart';
 import '../../../core/shared_preferences_adapter/shared_preferences_adapter.dart';

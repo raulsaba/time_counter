@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:time_counter/src/core/utils/app_time_formatter.dart';
-import 'package:time_counter/src/core/utils/time_of_day_ext.dart';
 
+import '../../core/utils/app_time_formatter.dart';
+import '../../core/utils/time_of_day_ext.dart';
 import '../working_day/cubit/working_day_cubit.dart';
 import '../working_time/cubit/working_time_cubit.dart';
 

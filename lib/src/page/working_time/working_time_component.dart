@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:time_counter/src/page/working_time/cubit/working_time_cubit.dart';
+import 'cubit/working_time_cubit.dart';
 
 import '../common/time_component.dart';
 

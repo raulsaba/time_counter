@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:time_counter/src/core/theme/domain/usecases/get_theme.dart';
-import 'package:time_counter/src/core/theme/domain/usecases/set_theme.dart';
+import '../domain/usecases/get_theme.dart';
+import '../domain/usecases/set_theme.dart';
 
 import '../domain/entities/theme_entity.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_manager/theme_manager.dart';
-import 'package:time_counter/src/page/working_time/cubit/working_time_cubit.dart';
+import 'working_time/cubit/working_time_cubit.dart';
 
 import 'calculated_time/calculated_time_component.dart';
 import 'working_day/working_day_component.dart';
@@ -20,12 +20,16 @@ class HomePage extends StatelessWidget {
           IconButton(
             onPressed: () {
               if (ThemeManager.of(context).brightness == Brightness.dark) {
-                ThemeManager.of(context).setBrightnessPreference(BrightnessPreference.light);
+                ThemeManager.of(context)
+                    .setBrightnessPreference(BrightnessPreference.light);
               } else {
-                ThemeManager.of(context).setBrightnessPreference(BrightnessPreference.dark);
+                ThemeManager.of(context)
+                    .setBrightnessPreference(BrightnessPreference.dark);
               }
             },
-            icon: Icon(ThemeManager.of(context).brightness == Brightness.dark ? Icons.light_mode : Icons.dark_mode),
+            icon: Icon(ThemeManager.of(context).brightness == Brightness.dark
+                ? Icons.light_mode
+                : Icons.dark_mode),
           ),
         ],
       ),

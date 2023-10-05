@@ -34,7 +34,18 @@ class TimeComponent extends StatelessWidget {
         IconButton.filled(
           onPressed: enabled
               ? () async {
-                  final TimeOfDay? time = await showTimePicker(context: context, initialTime: initialTime);
+                  final TimeOfDay? time = await showTimePicker(
+                    context: context,
+                    initialTime: initialTime,
+                    builder: (context, child) {
+                      return MediaQuery(
+                        data: MediaQuery.of(context).copyWith(
+                          alwaysUse24HourFormat: true,
+                        ),
+                        child: child!,
+                      );
+                    },
+                  );
 
                   if (time != null) {
                     setTime(time);

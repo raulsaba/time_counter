@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_manager/theme_manager.dart';
 
@@ -12,17 +13,14 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // return BlocProvider(
     //   create: (context) => Modular.get<ThemeCubit>(),
-    //   child: MaterialApp.router(
-    //     builder: (context, child) {
-    //       return BlocBuilder<ThemeCubit, ThemeState>(
-    //         builder: (context, state) {
-    //           return child!;
-    //         },
+    //   child: BlocBuilder<ThemeCubit, ThemeState>(
+    //     builder: (context, state) {
+    //       return MaterialApp.router(
+    //         theme: state.theme.themeData,
+    //         title: 'Horas de Trabalho',
+    //         routerConfig: Modular.routerConfig,
     //       );
     //     },
-    //     theme: ReadContext(context).read<ThemeCubit>().state.theme.themeData,
-    //     title: 'Horas de Trabalho',
-    //     routerConfig: Modular.routerConfig,
     //   ),
     // );
     return ThemeManager(
@@ -40,6 +38,15 @@ class AppWidget extends StatelessWidget {
           title: 'Horas de Trabalho',
           theme: theme,
           routerConfig: Modular.routerConfig,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('pt', 'BR'),
+          ],
+          locale: const Locale('pt', 'BR'),
         );
       },
     );

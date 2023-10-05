@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'app_time_formatter.dart';
+import '../errors/exceptions.dart';
 
 extension TimeOfDayExtension on TimeOfDay {
   TimeOfDay add(TimeOfDay time) {
@@ -14,7 +14,7 @@ extension TimeOfDayExtension on TimeOfDay {
 
       return replacing(hour: calculatedHour, minute: calculatedMinute);
     } catch (e) {
-      throw const TimeException("Erro ao somar o tempo");
+      throw TimeException(message: "Erro ao somar o tempo");
     }
   }
 
@@ -29,7 +29,7 @@ extension TimeOfDayExtension on TimeOfDay {
 
       return replacing(hour: calculatedHour, minute: calculatedMinute);
     } catch (e) {
-      throw const TimeException("Erro ao subtrair o tempo");
+      throw TimeException(message: "Erro ao subtrair o tempo");
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:time_counter/src/core/errors/exceptions.dart';
 import 'package:time_counter/src/core/utils/app_time_formatter.dart';
 
 void main() {
@@ -34,8 +35,7 @@ void main() {
         () async {
           const String time = "10:60";
 
-          expect(() => AppTimeFormater.getTime(time),
-              throwsA(isA<TimeException>()));
+          expect(() => AppTimeFormater.getTime(time), throwsA(isA<TimeException>()));
         },
       );
 
@@ -44,8 +44,7 @@ void main() {
         () async {
           const String time = "25:30";
 
-          expect(() => AppTimeFormater.getTime(time),
-              throwsA(isA<TimeException>()));
+          expect(() => AppTimeFormater.getTime(time), throwsA(isA<TimeException>()));
         },
       );
 
@@ -54,8 +53,7 @@ void main() {
         () async {
           const String time = "25:60";
 
-          expect(() => AppTimeFormater.getTime(time),
-              throwsA(isA<TimeException>()));
+          expect(() => AppTimeFormater.getTime(time), throwsA(isA<TimeException>()));
         },
       );
 
@@ -64,8 +62,7 @@ void main() {
         () async {
           const String time = "abc";
 
-          expect(() => AppTimeFormater.getTime(time),
-              throwsA(isA<TimeException>()));
+          expect(() => AppTimeFormater.getTime(time), throwsA(isA<TimeException>()));
         },
       );
     });

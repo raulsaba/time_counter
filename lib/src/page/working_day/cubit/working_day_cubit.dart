@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:time_counter/src/core/utils/app_time_formatter.dart';
 
+import '../../../core/errors/exceptions.dart';
 import '../../../core/shared_preferences_adapter/shared_preferences_adapter.dart';
 
 part 'working_day_state.dart';
@@ -21,7 +22,7 @@ class WorkingDayCubit extends Cubit<WorkingDayState> {
     try {
       _prefs.setString(workingTimePrefsKey, AppTimeFormater.getString(time));
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      debugPrint(e.message);
     }
   }
 
@@ -35,7 +36,7 @@ class WorkingDayCubit extends Cubit<WorkingDayState> {
       final TimeOfDay timeOfDay = AppTimeFormater.getTime(time!);
       emit(WorkingDayTime(time: timeOfDay));
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      debugPrint(e.message);
     }
   }
 

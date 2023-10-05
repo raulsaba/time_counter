@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:time_counter/src/core/theme/theme_module.dart';
 
 import 'core/shared_preferences_adapter/shared_preferences_adapter.dart';
 import 'page/home_page.dart';
@@ -36,4 +37,9 @@ class AppModule extends Module {
       ),
     );
   }
+
+  @override
+  List<Module> get imports => [
+        ThemeModule(),
+      ];
 }

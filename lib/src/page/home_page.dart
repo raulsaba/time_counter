@@ -19,17 +19,13 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              if (ThemeManager.of(context).brightness == Brightness.dark) {
-                ThemeManager.of(context)
-                    .setBrightnessPreference(BrightnessPreference.light);
+              if (ThemeManager.of(context).state.brightnessPreference == BrightnessPreference.dark) {
+                ThemeManager.of(context).setBrightness(BrightnessPreference.light);
               } else {
-                ThemeManager.of(context)
-                    .setBrightnessPreference(BrightnessPreference.dark);
+                ThemeManager.of(context).setBrightness(BrightnessPreference.dark);
               }
             },
-            icon: Icon(ThemeManager.of(context).brightness == Brightness.dark
-                ? Icons.light_mode
-                : Icons.dark_mode),
+            icon: Icon(ThemeManager.of(context).state.brightnessPreference == BrightnessPreference.dark ? Icons.light_mode : Icons.dark_mode),
           ),
         ],
       ),

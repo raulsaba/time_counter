@@ -8,18 +8,6 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocProvider(
-    //   create: (context) => Modular.get<ThemeCubit>(),
-    //   child: BlocBuilder<ThemeCubit, ThemeState>(
-    //     builder: (context, state) {
-    //       return MaterialApp.router(
-    //         theme: state.theme.themeData,
-    //         title: 'Horas de Trabalho',
-    //         routerConfig: Modular.routerConfig,
-    //       );
-    //     },
-    //   ),
-    // );
     return ThemeManager(
       defaultBrightnessPreference: BrightnessPreference.system,
       data: (Brightness brightness) => ThemeData(
@@ -29,11 +17,10 @@ class AppWidget extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      loadBrightnessOnStart: true,
-      themedWidgetBuilder: (BuildContext context, ThemeData theme) {
+      themedBuilder: (BuildContext context, ThemeState state) {
         return MaterialApp.router(
           title: 'Horas de Trabalho',
-          theme: theme,
+          theme: state.themeData,
           routerConfig: Modular.routerConfig,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,

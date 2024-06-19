@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_manager/theme_manager.dart';
+import 'package:time_counter/src/core/config/get_it_config.dart';
+import 'package:time_counter/src/core/router/go_router.dart';
+
+void appMain() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+  return runApp(const AppWidget());
+}
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -15,13 +22,11 @@ class AppWidget extends StatelessWidget {
           seedColor: Colors.deepPurple,
           brightness: brightness,
         ),
-        useMaterial3: true,
       ),
       themedBuilder: (BuildContext context, ThemeState state) {
         return MaterialApp.router(
           title: 'Horas de Trabalho',
           theme: state.themeData,
-          routerConfig: Modular.routerConfig,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
@@ -30,6 +35,9 @@ class AppWidget extends StatelessWidget {
           supportedLocales: const [
             Locale('pt', 'BR'),
           ],
+          routeInformationParser: goRouter.routeInformationParser,
+          routerDelegate: goRouter.routerDelegate,
+          routeInformationProvider: goRouter.routeInformationProvider,
           locale: const Locale('pt', 'BR'),
         );
       },

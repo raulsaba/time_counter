@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_counter/src/core/logger.dart';
 
+@lazySingleton
 class SharedPreferencesAdapter {
   const SharedPreferencesAdapter(this._prefs);
 

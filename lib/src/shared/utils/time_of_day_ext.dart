@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../errors/exceptions.dart';
+import '../../core/errors/exceptions.dart';
 
 extension TimeOfDayExtension on TimeOfDay {
   TimeOfDay add(TimeOfDay time) {

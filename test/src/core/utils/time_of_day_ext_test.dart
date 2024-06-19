@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:time_counter/src/core/utils/time_of_day_ext.dart';
+import 'package:time_counter/src/shared/utils/time_of_day_ext.dart';
 
 void main() {
   group('TimeOfDayExtension', () {

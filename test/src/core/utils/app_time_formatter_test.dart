@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:time_counter/src/core/errors/exceptions.dart';
-import 'package:time_counter/src/core/utils/app_time_formatter.dart';
+import 'package:time_counter/src/shared/utils/app_time_formatter.dart';
 
 void main() {
   group('AppTimeFormater -', () {

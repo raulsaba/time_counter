@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import '../../../core/utils/app_time_formatter.dart';
 
-import '../../../core/errors/exceptions.dart';
-import '../../../core/shared_preferences_adapter/shared_preferences_adapter.dart';
+import '../../../../../core/errors/exceptions.dart';
+import '../../../../../core/shared_preferences_adapter/shared_preferences_adapter.dart';
+import '../../../../../shared/resources/cache_key_strings.dart';
+import '../../../../../shared/utils/app_time_formatter.dart';
 
 part 'working_day_state.dart';
-
-const String workingTimePrefsKey = 'workingTime';
 
 @injectable
 class WorkingDayCubit extends Cubit<WorkingDayState> {
@@ -22,14 +22,14 @@ class WorkingDayCubit extends Cubit<WorkingDayState> {
     emit(WorkingDayTime(time: time));
 
     try {
-      _prefs.setString(workingTimePrefsKey, AppTimeFormater.getString(time));
+      _prefs.setString(ChaceKeyStrings.workingDayPrefsKey, AppTimeFormater.getString(time));
     } on TimeException catch (e) {
       debugPrint(e.message);
     }
   }
 
   Future<void> load() async {
-    final String? time = await _prefs.getString(workingTimePrefsKey);
+    final String? time = await _prefs.getString(ChaceKeyStrings.workingDayPrefsKey);
 
     try {
       if (time == null) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:theme_manager/theme_manager.dart';
 import 'package:time_counter/src/core/config/get_it_config.dart';
 import 'package:time_counter/src/core/router/go_router.dart';
@@ -35,10 +36,15 @@ class AppWidget extends StatelessWidget {
           supportedLocales: const [
             Locale('pt', 'BR'),
           ],
-          routeInformationParser: goRouter.routeInformationParser,
-          routerDelegate: goRouter.routerDelegate,
-          routeInformationProvider: goRouter.routeInformationProvider,
+          routerConfig: goRouter,
           locale: const Locale('pt', 'BR'),
+          builder: (context, child) => ResponsiveBreakpoints.builder(
+            child: child!,
+            breakpoints: [
+              const Breakpoint(start: 0, end: 900, name: MOBILE),
+              const Breakpoint(start: 901, end: double.infinity, name: DESKTOP),
+            ],
+          ),
         );
       },
     );

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../common/time_component.dart';
-import 'cubit/working_day_cubit.dart';
+import '../../../calculator/page/common/time_component.dart';
+import 'cubit/end_of_the_day_cubit.dart';
 
-class WorkingDayComponent extends StatelessWidget {
-  const WorkingDayComponent({
-    super.key,
-  });
+class EndOfTheDayComponent extends StatelessWidget {
+  const EndOfTheDayComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +13,12 @@ class WorkingDayComponent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          "Selecione o tempo desejado para o contador:",
+          "Horário do fim do expediente:",
           style: Theme.of(context).textTheme.bodyLarge,
         ),
-        BlocBuilder<WorkingDayCubit, WorkingDayState>(
+        BlocBuilder<EndOfTheDayCubit, EndOfTheDayState>(
           builder: (context, state) {
-            final WorkingDayCubit cubit = context.read();
+            final EndOfTheDayCubit cubit = context.read();
             return TimeComponent(
               time: state.getTime,
               initialTime: state.time,

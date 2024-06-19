@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import '../../../core/utils/time_of_day_ext.dart';
+import '../../../../../shared/utils/time_of_day_ext.dart';
 
-import '../../../core/errors/exceptions.dart';
-import '../../../core/shared_preferences_adapter/shared_preferences_adapter.dart';
-import '../../../core/utils/app_time_formatter.dart';
+import '../../../../../core/errors/exceptions.dart';
+import '../../../../../core/shared_preferences_adapter/shared_preferences_adapter.dart';
+import '../../../../../shared/utils/app_time_formatter.dart';
 
 part 'working_time_state.dart';
 

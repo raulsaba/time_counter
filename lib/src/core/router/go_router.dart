@@ -1,28 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:time_counter/src/core/logger.dart';
-import 'package:time_counter/src/page/home_page.dart';
+
+import '../../features/calculator/page/calculator_page.dart';
+import '../../features/config/config_container.dart';
+import '../../shared/widgets/page_builders/app_scaffold.dart';
+import '../logger.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter goRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
+  initialLocation: AppRoutes.intialRoute,
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) {
-        return const HomePage();
+    ShellRoute(
+      navigatorKey: _shellNavigatorKey,
+      builder: (context, state, child) {
+        return AppScaffold(
+          currentLocation: state.matchedLocation,
+          child: child,
+        );
       },
+      routes: [
+        GoRoute(
+          path: AppRoutes.intialRoute,
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: WorkingTimePage(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.configRoute,
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: ConfigContainer(),
+          ),
+        ),
+      ],
+    ),
+    GoRoute(
+      path: AppRoutes.intialRoute,
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: AppScaffold(
+          currentLocation: AppRoutes.intialRoute,
+          child: WorkingTimePage(),
+        ),
+      ),
     ),
   ],
-  initialLocation: '/',
   observers: [
     GoRouterObserver(),
   ],
 );
 
 class AppRoutes {
-  static const String homePage = "/";
+  static const String intialRoute = '/';
+  static const String configRoute = '/config';
 }
 
 class GoRouterObserver extends NavigatorObserver {

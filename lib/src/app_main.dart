@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_manager/theme_manager.dart';
+import 'package:time_counter/src/core/config/get_it_config.dart';
+import 'package:time_counter/src/core/router/go_router.dart';
+
+void appMain() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+  return runApp(const AppWidget());
+}
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // return BlocProvider(
-    //   create: (context) => Modular.get<ThemeCubit>(),
-    //   child: BlocBuilder<ThemeCubit, ThemeState>(
-    //     builder: (context, state) {
-    //       return MaterialApp.router(
-    //         theme: state.theme.themeData,
-    //         title: 'Horas de Trabalho',
-    //         routerConfig: Modular.routerConfig,
-    //       );
-    //     },
-    //   ),
-    // );
     return ThemeManager(
       defaultBrightnessPreference: BrightnessPreference.system,
       data: (Brightness brightness) => ThemeData(
@@ -27,14 +22,11 @@ class AppWidget extends StatelessWidget {
           seedColor: Colors.deepPurple,
           brightness: brightness,
         ),
-        useMaterial3: true,
       ),
-      loadBrightnessOnStart: true,
-      themedWidgetBuilder: (BuildContext context, ThemeData theme) {
+      themedBuilder: (BuildContext context, ThemeState state) {
         return MaterialApp.router(
           title: 'Horas de Trabalho',
-          theme: theme,
-          routerConfig: Modular.routerConfig,
+          theme: state.themeData,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
@@ -43,6 +35,9 @@ class AppWidget extends StatelessWidget {
           supportedLocales: const [
             Locale('pt', 'BR'),
           ],
+          routeInformationParser: goRouter.routeInformationParser,
+          routerDelegate: goRouter.routerDelegate,
+          routeInformationProvider: goRouter.routeInformationProvider,
           locale: const Locale('pt', 'BR'),
         );
       },

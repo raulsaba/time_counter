@@ -5,7 +5,7 @@ import 'cubit/working_time_cubit.dart';
 import '../common/time_component.dart';
 
 class WorkingTimeComponent extends StatelessWidget {
-  const WorkingTimeComponent({Key? key}) : super(key: key);
+  const WorkingTimeComponent({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import '../../../core/utils/app_time_formatter.dart';
 
 import '../../../core/errors/exceptions.dart';
@@ -9,6 +10,7 @@ part 'working_day_state.dart';
 
 const String workingTimePrefsKey = 'workingTime';
 
+@injectable
 class WorkingDayCubit extends Cubit<WorkingDayState> {
   WorkingDayCubit(this._prefs) : super(const WorkingDayTime()) {
     load();

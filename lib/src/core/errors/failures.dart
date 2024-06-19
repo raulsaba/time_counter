@@ -5,21 +5,21 @@ class Failure {
 }
 
 class UnexpectedFailure extends Failure {
-  UnexpectedFailure({String message = "Algo inesperado aconteceu!"}) : super(message: message);
+  UnexpectedFailure({super.message = "Algo inesperado aconteceu!"});
 }
 
 class CacheFailure extends Failure {
-  CacheFailure({required String message}) : super(message: message);
+  CacheFailure({required super.message});
 }
 
 class JsonFailure extends Failure {
-  JsonFailure({required String message}) : super(message: message);
+  JsonFailure({required super.message});
 }
 
 class TimeFailure extends Failure {
-  TimeFailure({required String message}) : super(message: message);
+  TimeFailure({required super.message});
 }
 
 class DataTimeFailure extends Failure {
-  DataTimeFailure({required String message}) : super(message: message);
+  DataTimeFailure({required super.message});
 }

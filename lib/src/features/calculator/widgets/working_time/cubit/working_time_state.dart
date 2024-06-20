@@ -67,7 +67,7 @@ final class WorkingTimes extends WorkingTimeState {
     try {
       return AppTimeFormater.getString(endTime1!);
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      Logger.red.log(e.toString());
       return '';
     }
   }
@@ -80,7 +80,7 @@ final class WorkingTimes extends WorkingTimeState {
     try {
       return AppTimeFormater.getString(endTime2!);
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      Logger.red.log(e.toString());
       return '';
     }
   }
@@ -93,7 +93,7 @@ final class WorkingTimes extends WorkingTimeState {
     try {
       return AppTimeFormater.getString(initialTime1!);
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      Logger.red.log(e.toString());
       return '';
     }
   }
@@ -106,7 +106,7 @@ final class WorkingTimes extends WorkingTimeState {
     try {
       return AppTimeFormater.getString(initialTime2!);
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      Logger.red.log(e.toString());
       return '';
     }
   }

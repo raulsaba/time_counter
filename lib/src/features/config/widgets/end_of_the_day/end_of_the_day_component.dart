@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../calculator/page/common/time_component.dart';
+import '../../../../shared/widgets/time_component.dart';
 import 'cubit/end_of_the_day_cubit.dart';
 
 class EndOfTheDayComponent extends StatelessWidget {

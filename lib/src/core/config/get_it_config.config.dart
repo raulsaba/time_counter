@@ -12,16 +12,14 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i3;
 
-import '../../features/calculator/page/working_day/cubit/working_day_cubit.dart'
-    as _i5;
-import '../../features/calculator/page/working_time/cubit/working_time_cubit.dart'
-    as _i6;
-import '../../features/config/widgets/end_of_the_day/cubit/end_of_the_day_cubit.dart'
+import '../../features/calculator/widgets/working_time/cubit/working_time_cubit.dart'
     as _i7;
+import '../../features/config/widgets/end_of_the_day/cubit/end_of_the_day_cubit.dart'
+    as _i5;
 import '../../features/config/widgets/working_day/cubit/working_day_cubit.dart'
-    as _i8;
+    as _i6;
 import '../shared_preferences_adapter/shared_preferences_adapter.dart' as _i4;
-import 'register_modules.dart' as _i9;
+import 'register_modules.dart' as _i8;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -41,16 +39,14 @@ extension GetItInjectableX on _i1.GetIt {
     );
     gh.lazySingleton<_i4.SharedPreferencesAdapter>(
         () => _i4.SharedPreferencesAdapter(gh<_i3.SharedPreferences>()));
-    gh.factory<_i5.WorkingDayCubit>(
-        () => _i5.WorkingDayCubit(gh<_i4.SharedPreferencesAdapter>()));
-    gh.factory<_i6.WorkingTimeCubit>(
-        () => _i6.WorkingTimeCubit(gh<_i4.SharedPreferencesAdapter>()));
-    gh.factory<_i7.EndOfTheDayCubit>(
-        () => _i7.EndOfTheDayCubit(gh<_i4.SharedPreferencesAdapter>()));
-    gh.factory<_i8.WorkingDayCubit>(
-        () => _i8.WorkingDayCubit(gh<_i4.SharedPreferencesAdapter>()));
+    gh.factory<_i5.EndOfTheDayCubit>(
+        () => _i5.EndOfTheDayCubit(gh<_i4.SharedPreferencesAdapter>()));
+    gh.factory<_i6.WorkingDayCubit>(
+        () => _i6.WorkingDayCubit(gh<_i4.SharedPreferencesAdapter>()));
+    gh.factory<_i7.WorkingTimeCubit>(
+        () => _i7.WorkingTimeCubit(gh<_i4.SharedPreferencesAdapter>()));
     return this;
   }
 }
 
-class _$RegisterModules extends _i9.RegisterModules {}
+class _$RegisterModules extends _i8.RegisterModules {}

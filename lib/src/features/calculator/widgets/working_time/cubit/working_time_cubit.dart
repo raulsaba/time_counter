@@ -1,18 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../../shared/utils/time_of_day_ext.dart';
 
 import '../../../../../core/errors/exceptions.dart';
+import '../../../../../core/logger.dart';
 import '../../../../../core/shared_preferences_adapter/shared_preferences_adapter.dart';
+import '../../../../../shared/resources/cache_key_strings.dart';
 import '../../../../../shared/utils/app_time_formatter.dart';
+import '../../../../../shared/utils/time_of_day_ext.dart';
 
 part 'working_time_state.dart';
-
-const String initialTime1PrefsKey = 'initialTime1';
-const String initialTime2PrefsKey = 'initialTime2';
-const String endTime1PrefsKey = 'endTime1';
-const String endTime2PrefsKey = 'endTime2';
 
 @injectable
 class WorkingTimeCubit extends Cubit<WorkingTimeState> {
@@ -28,7 +25,8 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
       isBefore(endTime1, intialTime2);
       isBefore(intialTime2, endTime2);
       return null;
-    } on TimeException {
+    } on TimeException catch (e) {
+      Logger.red.log(e);
       return 'Horário inserido inválido';
     }
   }
@@ -37,7 +35,11 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
     if (time1 == null || time2 == null) {
       return;
     }
-    time2.subtract(time1);
+    try {
+      time2.subtract(time1);
+    } on TimeException catch (e) {
+      Logger.red.log(e);
+    }
   }
 
   void setInitialTime1(TimeOfDay time) {
@@ -55,9 +57,9 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
         initialTime1: time, initialTime2: state.initialTime2, endTime1: state.endTime1, endTime2: state.endTime2));
 
     try {
-      _prefs.setString(initialTime1PrefsKey, AppTimeFormater.getString(time));
+      _prefs.setString(ChaceKeyStrings.initialTime1PrefsKey, AppTimeFormater.getString(time));
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      Logger.red.log(e.toString());
     }
   }
 
@@ -77,9 +79,9 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
         initialTime1: state.initialTime1, initialTime2: time, endTime1: state.endTime1, endTime2: state.endTime2));
 
     try {
-      _prefs.setString(initialTime2PrefsKey, AppTimeFormater.getString(time));
+      _prefs.setString(ChaceKeyStrings.initialTime2PrefsKey, AppTimeFormater.getString(time));
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      Logger.red.log(e.toString());
     }
   }
 
@@ -98,9 +100,9 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
         initialTime1: state.initialTime1, initialTime2: state.initialTime2, endTime1: time, endTime2: state.endTime2));
 
     try {
-      _prefs.setString(endTime1PrefsKey, AppTimeFormater.getString(time));
+      _prefs.setString(ChaceKeyStrings.endTime1PrefsKey, AppTimeFormater.getString(time));
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      Logger.red.log(e.toString());
     }
   }
 
@@ -119,17 +121,17 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
         initialTime1: state.initialTime1, initialTime2: state.initialTime2, endTime1: state.endTime1, endTime2: time));
 
     try {
-      _prefs.setString(endTime2PrefsKey, AppTimeFormater.getString(time));
+      _prefs.setString(ChaceKeyStrings.endTime2PrefsKey, AppTimeFormater.getString(time));
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      Logger.red.log(e.toString());
     }
   }
 
   Future<void> load() async {
-    final String? initialTime1 = await _prefs.getString(initialTime1PrefsKey);
-    final String? initialTime2 = await _prefs.getString(initialTime2PrefsKey);
-    final String? endTime1 = await _prefs.getString(endTime1PrefsKey);
-    final String? endTime2 = await _prefs.getString(endTime2PrefsKey);
+    final String? initialTime1 = await _prefs.getString(ChaceKeyStrings.initialTime1PrefsKey);
+    final String? initialTime2 = await _prefs.getString(ChaceKeyStrings.initialTime2PrefsKey);
+    final String? endTime1 = await _prefs.getString(ChaceKeyStrings.endTime1PrefsKey);
+    final String? endTime2 = await _prefs.getString(ChaceKeyStrings.endTime2PrefsKey);
 
     try {
       final TimeOfDay? initialTimeOfDay1 =
@@ -145,16 +147,16 @@ class WorkingTimeCubit extends Cubit<WorkingTimeState> {
           endTime1: endTimeOfDay1,
           endTime2: endTimeOfDay2));
     } on TimeException catch (e) {
-      debugPrint(e.toString());
+      Logger.red.log(e.toString());
       emit(const WorkingTimes());
     }
   }
 
   void reset() {
-    _prefs.remove(initialTime1PrefsKey);
-    _prefs.remove(initialTime2PrefsKey);
-    _prefs.remove(endTime1PrefsKey);
-    _prefs.remove(endTime2PrefsKey);
+    _prefs.remove(ChaceKeyStrings.initialTime1PrefsKey);
+    _prefs.remove(ChaceKeyStrings.initialTime2PrefsKey);
+    _prefs.remove(ChaceKeyStrings.endTime1PrefsKey);
+    _prefs.remove(ChaceKeyStrings.endTime2PrefsKey);
     emit(const WorkingTimes());
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/calculator/page/calculator_page.dart';
+import '../../features/calculator/calculator_container.dart';
 import '../../features/config/config_container.dart';
 import '../../shared/widgets/page_builders/app_scaffold.dart';
 import '../logger.dart';
@@ -25,7 +25,7 @@ final GoRouter goRouter = GoRouter(
         GoRoute(
           path: AppRoutes.intialRoute,
           pageBuilder: (context, state) => const NoTransitionPage(
-            child: WorkingTimePage(),
+            child: CalculatorContainer(),
           ),
         ),
         GoRoute(
@@ -36,15 +36,15 @@ final GoRouter goRouter = GoRouter(
         ),
       ],
     ),
-    GoRoute(
-      path: AppRoutes.intialRoute,
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: AppScaffold(
-          currentLocation: AppRoutes.intialRoute,
-          child: WorkingTimePage(),
-        ),
-      ),
-    ),
+    // GoRoute(
+    //   path: AppRoutes.intialRoute,
+    //   pageBuilder: (context, state) => const NoTransitionPage(
+    //     child: AppScaffold(
+    //       currentLocation: AppRoutes.intialRoute,
+    //       child: CalculatorContainer(),
+    //     ),
+    //   ),
+    // ),
   ],
   observers: [
     GoRouterObserver(),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'cubit/working_time_cubit.dart';
 
-import '../common/time_component.dart';
+import '../../../../shared/widgets/time_component.dart';
 
 class WorkingTimeComponent extends StatelessWidget {
   const WorkingTimeComponent({super.key});

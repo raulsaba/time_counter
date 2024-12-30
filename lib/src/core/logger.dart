@@ -14,4 +14,9 @@ enum Logger {
   const Logger(this.code);
 
   void log(dynamic text) => debugPrint('\x1B[${code}m$text\x1B[0m');
+
+  static logError(dynamic text) => debugPrint('🛑 \x1B[31m$text\x1B[0m');
+  static logWarning(dynamic text) => debugPrint('⚠️ \x1B[33m$text\x1B[0m');
+  static logSuccess(dynamic text) => debugPrint('✅ \x1B[32m$text\x1B[0m');
+  static logInfo(dynamic text) => debugPrint('🆕 \x1B[34m$text\x1B[0m');
 }

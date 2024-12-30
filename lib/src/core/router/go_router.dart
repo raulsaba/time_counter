@@ -59,21 +59,17 @@ class AppRoutes {
 class GoRouterObserver extends NavigatorObserver {
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    Logger.white.log('MyTest didPush: ${route.settings.name}');
+    Logger.yellow.log("➡️ push -> ${route.settings.name}");
   }
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    Logger.white.log('MyTest didPop: ${route.settings.name}');
+    Logger.magenta.log("⬅️ pop -> ${previousRoute?.settings.name}");
   }
 
   @override
-  void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    Logger.white.log('MyTest didRemove: ${route.settings.name}');
-  }
+  void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {}
 
   @override
-  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
-    Logger.white.log('MyTest didReplace: $newRoute');
-  }
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {}
 }
